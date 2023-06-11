@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
@@ -16,6 +18,8 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var listView: ListView
     lateinit var text: TextView
+    var time: Long = 0
+    var interval: Long = 0
     var componentList: MutableList<String> = mutableListOf()
 
     @SuppressLint("MissingInflatedId")
@@ -26,10 +30,18 @@ class MainActivity : AppCompatActivity() {
         listView = findViewById(R.id.all_list_v)
         text = findViewById(R.id.total_txt)
         var btn = findViewById<Button>(R.id.btn_show)
+        var etTime = findViewById<EditText>(R.id.txt_time)
+        var etInterval = findViewById<EditText>(R.id.txt_interval)
+        var btn_set_timmer = findViewById<Button>(R.id.btn_timmer)
 
         // button for get all installed apps
         btn.setOnClickListener {
             getAllApps()
+        }
+
+        btn_set_timmer.setOnClickListener {
+            time = etTime.text.toString().toLong()
+            interval = etInterval.text.toString().toLong()
         }
 
 
@@ -38,11 +50,20 @@ class MainActivity : AppCompatActivity() {
 
             var packages = componentList[position]
             var launchApp = getPackageManager().getLaunchIntentForPackage(packages)
-            if (launchApp != null) {
-                startActivity(launchApp)
-            } else {
-                Toast.makeText(applicationContext, "Package not found", Toast.LENGTH_SHORT).show();
+
+            val timer = object : CountDownTimer(time, interval){
+                override fun onTick(millisUntilFinished: Long) {
+                }
+                override fun onFinish() {
+                    if (launchApp != null) {
+                        startActivity(launchApp)
+                    } else {
+                        Toast.makeText(applicationContext, "Package not found", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
             }
+            timer.start()
 
         }
     }

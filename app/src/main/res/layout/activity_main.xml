@@ -5,17 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="10dp"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btn_show"
-        android:text="Show All Installed App"
+    <EditText
+        android:id="@+id/txt_time"
+        android:hint="Time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <EditText
+        android:id="@+id/txt_interval"
+        android:hint="Interval"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_show"
+            android:text="Show All Installed App"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/btn_timmer"
+            android:text="Set Timmer"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+
     <TextView
         android:id="@+id/total_txt"
-        android:text="Total"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
